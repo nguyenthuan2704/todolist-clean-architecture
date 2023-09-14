@@ -3,6 +3,7 @@ package biz
 import (
 	"context"
 	"strings"
+	"todolist-clean-architecture/common"
 	"todolist-clean-architecture/modules/item/model"
 )
 
@@ -23,7 +24,7 @@ func (biz *createItemBiz) CreateNewItem(ctx context.Context, data *model.TodoIte
 		return model.ErrTitleIsBlank
 	}
 	if err := biz.store.CreateItem(ctx, data); err != nil {
-		return err
+		return common.ErrCannotCreateEntity(model.EntityName, err)
 	}
 
 	return nil
